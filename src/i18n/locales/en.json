@@ -3,7 +3,8 @@
     "home": "Home",
     "visualization": "Visualization",
     "search": "Search",
-    "info": "Info"
+    "info": "Info",
+    "sunburst": "Sunburst"
   },
   "header": {
     "siteTitle": "Berlin Budget Data"
@@ -34,6 +35,8 @@
     "body2": "The expenditure is determined by the Berlin House of Representatives in the Budget Act. It can be divided into nine nationally standardized main functional areas. These can be represented as the top level of a structure that branches out ever further downward, known as a tree map.",
     "toVisualization": "→ To the Visualization",
     "exploreAll": "Explore all expenses and income in the tree map",
+    "toSunburst": "→ To the Sunburst",
+    "sunburstExplore": "Explore the data as a zoomable sunburst visualization",
     "iframeTitle": "Example visualization of budget data",
     "districtInfo": "In Berlin's budget plan, expenditure and revenue are also assigned to specific areas of main administrations and districts. The amounts for each budget year are stated separately. Using the visualization, which is accessible via the link above, the individual forms of representation and years can be explored in detail.",
     "detailInfo": "The most detailed information on specific amounts in the budget plan is the so-called income and expense items. They can be filtered via the visualization and then appear below the tree map. Items and functions can also be found specifically via the search function.",

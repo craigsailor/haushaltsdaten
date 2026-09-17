@@ -3,7 +3,8 @@
     "home": "Ana Sayfa",
     "visualization": "Görselleştirme",
     "search": "Arama",
-    "info": "Bilgi"
+    "info": "Bilgi",
+    "sunburst": "Güneş Patlaması"
   },
   "header": {
     "siteTitle": "Berlin Bütçe Verileri"
@@ -34,6 +35,8 @@
     "body2": "Harcamalar Berlin Eyalet Meclisi tarafından Bütçe Yasası'nda belirlenir. Dokuz ulusal düzeyde standartlaştırılmış ana fonksiyonel alana ayrılabilirler. Bunlar, aşağı doğru sürekli dallanan bir yapının en üst düzeyi olarak, bir tree map olarak adlandırılan bir şekilde temsil edilebilir.",
     "toVisualization": "→ Görselleştirmeye",
     "exploreAll": "Tüm giderleri ve gelirleri tree map'te keşfedin",
+    "toSunburst": "→ Güneş Patlamasına",
+    "sunburstExplore": "Verileri zoulanabilir güneş patlaması görselleştirmesinde keşfedin",
     "iframeTitle": "Bütçe verilerinin örnek görselleştirmesi",
     "districtInfo": "Berlin bütçe planında, giderler ve gelirler ayrıca ana idarelerin ve ilçelerin belirli alanlarına atanmaktadır. Tutarlar her bütçe yılı için ayrı ayrı belirtilmektedir. Yukarıdaki link üzerinden erişilebilen görselleştirme ile temsil biçimleri ve yıllar ayrıntılı olarak keşfedilebilir.",
     "detailInfo": "Bütçe planındaki belirli tutarlara ilişkin en ayrıntılı bilgiler, sözde gelir ve gider kalemeleridir. Bunlar görselleştirme yoluyla filtrelenebilir ve ardından tree map'in altında görünür. Kalemeler ve işlevler ayrıca arama işlevi üzerinden de bulunabilir.",

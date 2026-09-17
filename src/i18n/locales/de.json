@@ -3,7 +3,8 @@
     "home": "Startseite",
     "visualization": "Visualisierung",
     "search": "Textsuche",
-    "info": "Infos"
+    "info": "Infos",
+    "sunburst": "Sonnenstrahl"
   },
   "header": {
     "siteTitle": "Berliner Haushaltsdaten"
@@ -32,8 +33,10 @@
     ],
     "body1": "Das Leben und Zusammenleben in Berlin verursacht viele laufende Kosten: Gehälter für Lehrerinnen und Lehrer, der Betrieb öffentlicher Gebäude, die Förderung von kulturellen Einrichtungen, die Beleuchtung des Straßenraums. Hinzu kommen langfristige Investitionen in technische und soziale Infrastruktur wie die Schulen, den öffentlichen Nahverkehr oder Parks und Erholungsflächen. All diese Ausgaben trägt die Berliner Verwaltung. Doch wofür wird wieviel Geld ausgegeben?",
     "body2": "Die Ausgaben legt das Berliner Abgeordnetenhaus im Haushaltsgesetz fest. Sie lassen sich in neun bundesweit vereinheitlichte Hauptfunktionsbereiche untergliedern. Diese können als oberste Stufe einer sich nach unten immer weiter verzweigenden Struktur, einer so genannten Tree Map, dargestellt werden:",
-    "toVisualization": "→ Zur Visualisierung",
+    "toVisualization": "→ Zur TreeMap",
     "exploreAll": "Alle Ausgaben und Einnahmen in der Tree Map erkunden",
+    "toSunburst": "→ Zum Sonnenstrahl",
+    "sunburstExplore": "Die Daten als zoombare Sonnenstrahl-Darstellung erkunden",
     "iframeTitle": "Beispiel-Visualisierung der Haushaltsdaten",
     "districtInfo": "Im Berliner Haushaltsplan sind die Ausgaben und Einnahmen außerdem spezifischen Bereichen von Hauptverwaltungen und Bezirken zugeordnet. Dabei werden die Beträge für die einzelnen Haushaltsjahre getrennt angegeben. Mittels der Visualisierung, die über den Link oben erreichbar ist, können die einzelnen Darstellungsformen und Jahre im Detail erkundet werden.",
     "detailInfo": "Die detailliertesten Angaben zu spezifischen Beträgen im Haushaltsplan sind die sogenannten Einnahme- und Ausgabetitel. Sie können über die Visualisierung gefiltert werden und erscheinen dann unter der Tree Map. Titel und Funktionen können aber auch gezielt über die Suchfunktion gefunden werden.",

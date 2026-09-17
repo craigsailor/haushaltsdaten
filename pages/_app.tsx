@@ -30,9 +30,9 @@ const App: FC<{
   return (
     <StrictMode>
       <Head pageTitle={pageProps.title || ''} />
-      {pathname !== '/share' && <Header />}
+      {!pathname.startsWith('/share') && <Header />}
       <Component {...pageProps} />
-      {pathname !== '/share' && <Footer />}
+      {!pathname.startsWith('/share') && <Footer />}
     </StrictMode>
   )
 }

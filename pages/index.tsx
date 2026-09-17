@@ -114,6 +114,34 @@ export const HomePage: FC = () => {
           </div>
         </div>
 
+        <div className="md:flex justify-center m-auto mt-6 md:mt-12 ">
+          <div className="flex-col inline-block my-auto justify-center md:pr-10">
+            <iframe
+              style={{ width: '100%' }}
+              title={t('home.iframeTitle')}
+              width="400rem"
+              height="400"
+              src={`${basePath}/share-sunburst`}
+            ></iframe>
+          </div>
+          <div className="flex-col mb-6 md:my-auto inline-block">
+            <FadeInWrapper>
+              <div className="pr-12">
+                <ul>
+                  <span className="font-bold text-xl text-brand">
+                    <InternalLink href={'/sonnenstrahl'}>
+                      {t('home.toSunburst')}
+                    </InternalLink>
+                  </span>
+                  <li>
+                    <p className="pl-6">{t('home.sunburstExplore')}</p>
+                  </li>
+                </ul>
+              </div>
+            </FadeInWrapper>
+          </div>
+        </div>
+
         <div className="lg:w-3/6 m-auto mt-6 md:mt-12">
           {t('home.districtInfo')}
           <br></br>

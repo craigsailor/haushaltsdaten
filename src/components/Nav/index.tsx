@@ -13,6 +13,7 @@ export const Nav: FC = () => {
   const NAV_ITEMS = [
     { label: t('nav.home'), path: '/' },
     { label: t('nav.visualization'), path: '/visualisierung' },
+    { label: t('nav.sunburst'), path: '/sonnenstrahl' },
     { label: t('nav.search'), path: '/search' },
     { label: t('nav.info'), path: '/faq' },
   ]
