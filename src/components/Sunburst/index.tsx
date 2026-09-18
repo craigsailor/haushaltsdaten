@@ -9,10 +9,16 @@ import { topicDescriptions as deDescriptions } from '@data/descriptionData'
 import { topicDescriptions as enDescriptions } from '@data/descriptionData.en'
 import { topicDescriptions as trDescriptions } from '@data/descriptionData.tr'
 
+export interface TopicType {
+  topicDepth?: 1 | 2 | 3
+  topicLabel?: string
+}
+
 export interface SunburstType {
   width?: number
   height?: number
   hierarchy: TreemapHierarchyType
+  onChangeLevel?: (level: TopicType) => void
 }
 
 type SunburstNode = d3.HierarchyRectangularNode<TreemapHierarchyType>
@@ -27,6 +33,7 @@ export const Sunburst: FC<SunburstType> = ({
   width = 800,
   height = 800,
   hierarchy,
+  onChangeLevel = () => undefined,
 }) => {
   const svgRef = useRef<SVGSVGElement>(null)
   const descriptionsRef = useRef<Record<string, string>>({})
@@ -265,6 +272,14 @@ export const Sunburst: FC<SunburstType> = ({
 
     function clicked(p: SunburstNode): void {
       parent.datum(p.parent || root)
+
+      const depth = p === root ? p.depth - 1 : p.depth
+      const topicLabel = p === root ? p.parent?.data.name : p.data.name
+
+      onChangeLevel({
+        topicDepth: depth as TopicType['topicDepth'],
+        topicLabel,
+      })
 
       // Compute target for every node (including invisible ones)
       root.each((d) => {

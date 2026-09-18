@@ -1,13 +1,15 @@
+import { ListItem } from '@components/ListItem'
+import snakeCase from 'just-snake-case'
 import { GetRowsByDistrictAndTypeParamsType } from '@lib/types/haushaltsdaten'
 import {
   createBaseTree,
   createTreeStructure,
   TreemapHierarchyType,
 } from '@lib/utils/createTreemapStructure'
-import { Sunburst } from '@components/Sunburst'
+import { Sunburst, TopicType } from '@components/Sunburst'
 import { mapRawQueryToState } from '@lib/utils/queryUtil'
 import { GetStaticProps } from 'next'
-import { FC, useMemo } from 'react'
+import { FC, useState, useEffect, useMemo } from 'react'
 import useDimensions from 'react-cool-dimensions'
 import { TreeMapControls } from '@components/TreeMapControls'
 import classNames from 'classnames'
@@ -19,8 +21,23 @@ import { DEFAULT_MODUS, isValidModus } from '@lib/utils/modusValidator'
 import { useHaushaltsdaten } from '@lib/hooks/useHaushaltsdaten'
 import { useTranslation } from 'react-i18next'
 import { translateData } from '@lib/utils/translateData'
+import { useListData } from '@lib/hooks/useListData'
+import {
+  mapTopicDepthToColumn,
+  TopicDepth,
+} from '@lib/utils/mapTopicDepthToColumn'
+import { getColorByMainTopic } from '@components/TreeMap/colors'
+import { Button } from '@components/Button'
 
 const ALL_DISTRICTS_ID: keyof typeof districts = '01' // -> Alle Bereiche
+const MAX_ROWS = 100
+
+const isValidTopicDepth = (depthToCheck: number): boolean => {
+  const VALID_DEPTHS: TopicDepth[] = [1, 2, 3]
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return VALID_DEPTHS.includes(depthToCheck)
+}
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getStaticProps: GetStaticProps = async () => ({
@@ -82,6 +99,46 @@ export const Sonnenstrahl: FC = () => {
     }
   }, [haushaltsdaten, queriedType])
 
+  const [topic, setTopic] = useState<TopicType>({})
+  const [visibleRows, setVisibleRows] = useState<number>(MAX_ROWS)
+  const loadMoreRows = (): void => {
+    const listDataLength = (listData || []).length
+    const rowsToAdd = 10
+    setVisibleRows(
+      visibleRows + rowsToAdd >= listDataLength
+        ? listDataLength
+        : visibleRows + rowsToAdd
+    )
+  }
+
+  const topicColumn =
+    topic?.topicDepth && isValidTopicDepth(topic.topicDepth)
+      ? mapTopicDepthToColumn(topic.topicDepth, queriedModus)
+      : undefined
+
+  const topicValue =
+    topic.topicLabel &&
+    topic?.topicDepth &&
+    isValidTopicDepth(topic?.topicDepth)
+      ? topic.topicLabel
+      : undefined
+
+  const {
+    error,
+    isLoading,
+    data: listData,
+  } = useListData({
+    data: haushaltsdaten,
+    modus: queriedModus,
+    topicColumn,
+    topicValue,
+  })
+
+  useEffect(() => {
+    const listDataLength = (listData || []).length
+    setVisibleRows(listDataLength <= MAX_ROWS ? listDataLength : MAX_ROWS)
+  }, [listData])
+
   if (dataLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -130,6 +187,7 @@ export const Sonnenstrahl: FC = () => {
               <TreeMapControls
                 district={queriedDistrictId || undefined}
                 onChange={(newQuery) => {
+                  setTopic({})
                   void push({ pathname, query: newQuery }, undefined, {
                     shallow: false,
                   })
@@ -151,8 +209,63 @@ export const Sonnenstrahl: FC = () => {
                 hierarchy={hierarchyData}
                 width={Math.min(width, height)}
                 height={Math.min(width, height)}
+                onChangeLevel={(level) => {
+                  setTopic(level)
+                }}
               />
             )}
+          </div>
+          <div className="container mx-auto mt-4 flex justify-end lg:hidden">
+            <EmbeddPopup />
+          </div>
+          <div className="container mx-auto">
+            <h2 className="mb-6 mt-12 px-4 font-bold text-2xl">
+              {queriedType === 'Ausgabetitel'
+                ? t('visualization.highestExpenses')
+                : t('visualization.highestIncome')}
+            </h2>
+            <ul className="flex flex-col gap-4">
+              {!error &&
+                !isLoading &&
+                (listData || [])
+                  .map((item) => ({
+                    id: item.id,
+                    title: item.titel_bezeichnung,
+                    amount: parseInt(item.betrag, 10),
+                    group: item.hauptKey,
+                    groupId: snakeCase(item.hauptKey),
+                    district: item.bereichs_bezeichnung,
+                  }))
+                  .sort((a, b) => b.amount - a.amount)
+                  .slice(0, visibleRows)
+                  .map((item) => (
+                    <ListItem
+                      key={item.id}
+                      title={item.title}
+                      id={item.id}
+                      group={item.group}
+                      groupColor={getColorByMainTopic(item.group)}
+                      district={item.district}
+                      price={item.amount}
+                    />
+                  ))}
+            </ul>
+
+            <div className="justify-center flex mt-8">
+              <Button
+                onClick={loadMoreRows}
+                disabled={visibleRows >= (listData || []).length}
+              >
+                <span className="block">
+                  {queriedType === 'Ausgabetitel'
+                    ? t('visualization.showMoreExpenses')
+                    : t('visualization.showMoreIncome')}
+                  <span className="font-normal text-xs block">
+                    ({visibleRows}/{(listData || []).length})
+                  </span>
+                </span>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
